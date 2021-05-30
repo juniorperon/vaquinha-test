@@ -19,7 +19,7 @@ namespace Vaquinha.Tests.Common.Fixtures
             var faker = new Faker<DoacaoViewModel>("pt_BR");
 
             const int MIN_VALUE = 1;
-            const int MAX_VALUE = 500;
+            const int MAX_VALUE = 4500;
             const int DECIMALS = 2;
 
             faker.RuleFor(c => c.Valor, (f, c) => f.Finance.Amount(MIN_VALUE, MAX_VALUE, DECIMALS));
@@ -31,7 +31,7 @@ namespace Vaquinha.Tests.Common.Fixtures
             return retorno;
         }
 
-        public Doacao DoacaoValida(bool emailInvalido = false, double? valor = 5, bool maxLenghField = false)
+        public Doacao DoacaoValida(bool emailInvalido = false, double? valor = 5, bool maxLenghField = false, bool aceitaTaxa = false)
         {            
             var faker = new Faker<Doacao>("pt_BR");
 
@@ -40,7 +40,7 @@ namespace Vaquinha.Tests.Common.Fixtures
             const int DECIMALS = 2;
 
             faker.CustomInstantiator(f => new Doacao(Guid.Empty, Guid.Empty, Guid.Empty, valor ?? (double)f.Finance.Amount(MIN_VALUE, MAX_VALUE, DECIMALS), 
-                                                        PessoaValida(emailInvalido, maxLenghField), null, null));
+                                                        PessoaValida(emailInvalido, maxLenghField), null, null, aceitaTaxa));
 
             return faker.Generate();
         }
